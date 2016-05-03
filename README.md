@@ -3,7 +3,7 @@
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
-Our base php project dependencies changes very little so it's divided into own image for better caching and building stability. If you want fullblown working wordpress image have look into: [devgeniem/alpine-php-base](https://github.com/devgeniem/alpine-wordpress).
+Our base php project dependencies changes very little so it's divided into own image for better caching and building stability. If you want fullblown working wordpress image have look into: [devgeniem/alpine-wordpress](https://github.com/devgeniem/alpine-wordpress).
 
 ## What's inside container:
 ### For running PHP/WordPress
