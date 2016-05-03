@@ -1,4 +1,4 @@
-#libwebp libraries don't work correctly with alpine:v3.3 so we are using edge
+# Dependency for php7: libwebp library doesn't work correctly with alpine:v3.3 so we are using alpine:edge
 FROM alpine:edge
 MAINTAINER Onni Hakala - Geniem Oy. <onni.hakala@geniem.com>
 
@@ -45,13 +45,13 @@ RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C / && \
     rm /tmp/s6-overlay-amd64.tar.gz
 
 ##
-# Install ruby and integration testing tools
+# Install ruby + dependencies and integration testing tools
 # - We install build libraries only for this one run so whole image can stay smaller size
 ##
-RUN apk --update add ruby && \
+RUN apk --update add ruby libxslt && \
     apk add --virtual build_deps build-base ruby-dev libc-dev linux-headers \
     openssl-dev postgresql-dev libxml2-dev libxslt-dev && \
-    gem install rspec rspec-retry poltergeist capybara --no-ri --no-rdoc -- --use-system-libraries && \
+    gem install json rspec rspec-retry poltergeist capybara --no-ri --no-rdoc -- --use-system-libraries && \
     apk del build_deps
 
 ##
