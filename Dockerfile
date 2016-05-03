@@ -41,7 +41,8 @@ ADD lib/phantomjs-dependencies.tar.gz /
 # source: https://github.com/just-containers/s6-overlay/#the-docker-way
 ##
 ADD https://github.com/just-containers/s6-overlay/releases/download/v1.17.2.0/s6-overlay-amd64.tar.gz /tmp/
-RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C /
+RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C / && \
+    rm /tmp/s6-overlay-amd64.tar.gz
 
 ##
 # Install ruby and integration testing tools
@@ -65,3 +66,7 @@ RUN cd /tmp && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +rx /usr/local/bin/composer && \
     chmod +rx /usr/local/bin/wp-cli
+
+# Remove cache and tmp files
+RUN rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
