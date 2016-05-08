@@ -52,7 +52,10 @@ RUN apk --update add ruby libxslt && \
     apk add --virtual build_deps build-base ruby-dev libc-dev linux-headers \
     openssl-dev postgresql-dev libxml2-dev libxslt-dev && \
     gem install json rspec rspec-retry poltergeist capybara --no-ri --no-rdoc -- --use-system-libraries && \
-    apk del build_deps
+    apk del build_deps && \
+    # Remove cache and tmp files
+    rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
 
 ##
 # Install composer & wp-cli
@@ -65,8 +68,13 @@ RUN cd /tmp && \
     rm  composer-setup.php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +rx /usr/local/bin/composer && \
-    chmod +rx /usr/local/bin/wp-cli
+    chmod +rx /usr/local/bin/wp-cli && \
 
-# Remove cache and tmp files
-RUN rm -rf /var/cache/apk/* && \
-    rm -rf /tmp/*
+##
+# Add WP coding standards with php codesniffer
+##
+RUN composer create-project wp-coding-standards/wpcs:dev-master --no-interaction --no-dev /var/lib/wpcs
+
+# Update path with composer files + wpcs
+ENV PATH="$PATH:/data/code/vendor/.bin:/root/.composer/bin:/var/lib/wpcs/vendor/bin"
+
