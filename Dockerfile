@@ -69,11 +69,8 @@ RUN cd /tmp && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +rx /usr/local/bin/composer && \
     chmod +rx /usr/local/bin/wp-cli && \
-
-##
-# Add WP coding standards with php codesniffer
-##
-RUN composer create-project wp-coding-standards/wpcs:dev-master --no-interaction --no-dev /var/lib/wpcs
+    # Add WP coding standards with php codesniffer
+    composer create-project wp-coding-standards/wpcs:dev-master --no-interaction --no-dev /var/lib/wpcs
 
 # Update path with composer files + wpcs
 ENV PATH="$PATH:/data/code/vendor/.bin:/root/.composer/bin:/var/lib/wpcs/vendor/bin"
