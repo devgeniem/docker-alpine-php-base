@@ -58,16 +58,18 @@ RUN apk --update add ruby libxslt && \
     rm -rf /tmp/*
 
 ##
-# Install composer & wp-cli
-# source: https://getcomposer.org/download/ & http://wp-cli.org/
+# Install composer, wp-cli & cronlock
+# source: https://getcomposer.org/download/ & http://wp-cli.org/ & https://github.com/kvz/cronlock
 ##
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp-cli
+ADD https://raw.githubusercontent.com/kvz/cronlock/master/cronlock /usr/local/bin/cronlock
 ADD https://getcomposer.org/installer /tmp/composer-setup.php
 RUN cd /tmp && \
     php composer-setup.php && \
     rm  composer-setup.php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +rx /usr/local/bin/composer && \
+    chmod +rx /usr/local/bin/cronlock && \
     chmod +rx /usr/local/bin/wp-cli && \
     # Add WP coding standards with php codesniffer
     composer create-project wp-coding-standards/wpcs:dev-master --no-interaction --no-dev /var/lib/wpcs
