@@ -5,3 +5,4 @@ web:
     # We need to add this static ip here until we can add --dns flag in nlf/dlite
     # Related issue: https://github.com/nlf/dlite/issues/90
     - 172.17.0.1
+  command: /init
