@@ -2,9 +2,12 @@
 FROM alpine:edge
 MAINTAINER Onni Hakala - Geniem Oy. <onni.hakala@geniem.com>
 
-# Install curl first and dustinblackman/phantomized package
-# This is because if alpine packages share something with dustinblackman/phantomized we can replace those
-RUN apk --update add curl && \
+
+RUN cd /tmp/ && \
+
+    # Install curl first and dustinblackman/phantomized package
+    # This is because if alpine packages share something with dustinblackman/phantomized we can replace those
+    apk --update add curl && \
 
     ##
     # PhantomJS
@@ -21,6 +24,8 @@ RUN apk --update add curl && \
 
     # Install dependencies and small amount of devtools
     apk add bash less vim nano git mysql-client nginx ca-certificates openssh-client \
+    # Install nodejs for building frontend assets
+    nodejs \
     # Libs for php
     libssh2 libpng freetype libjpeg-turbo libgcc libxml2 libstdc++ icu-libs libltdl libmcrypt \
     # For mails
@@ -74,7 +79,6 @@ RUN apk --update add curl && \
     # Install composer
     # source: https://getcomposer.org/download/
     ##
-    cd /tmp/ && \
     curl -L https://getcomposer.org/installer -o composer-setup.php && \
     php composer-setup.php && \
     rm  composer-setup.php && \
