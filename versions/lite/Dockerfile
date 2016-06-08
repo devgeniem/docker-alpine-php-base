@@ -6,7 +6,7 @@ MAINTAINER Onni Hakala - Geniem Oy. <onni.hakala@geniem.com>
 RUN cd /tmp/ && \
 
     # Install dependencies and small amount of devtools
-    apk add curl bash mysql-client nginx ca-certificates \
+    apk --update add curl bash mysql-client nginx ca-certificates \
     # Libs for php
     libssh2 libpng freetype libjpeg-turbo libgcc libxml2 libstdc++ icu-libs libltdl libmcrypt \
     # For sending mail from container
